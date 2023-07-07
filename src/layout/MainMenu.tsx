@@ -17,6 +17,7 @@ export const MainMenu = ({ ...rest }) => {
       {isAdmin && (
         <MainMenuItem to="/admin">{t('layout:mainMenu.admin')}</MainMenuItem>
       )}
+      <MainMenuItem to="/movies">{t('layout:mainMenu.movies')}</MainMenuItem>
     </Stack>
   );
 };

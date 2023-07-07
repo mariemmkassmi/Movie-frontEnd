@@ -31,6 +31,10 @@ const PageUsers = dynamic(() => import('@/features/users/PageUsers'), {
   loading: () => <Loader />,
 });
 
+const PageMovies = dynamic(() => import('@/features/movies/PageMovies'), {
+  loading: () => <Loader />,
+});
+
 const PageUserCreate = dynamic(
   () => import('@/features/users/PageUserCreate'),
   {
@@ -160,6 +164,26 @@ export const routes = [
               {
                 path: 'api',
                 children: [{ path: '', element: <PageApiDocumentation /> }],
+              },
+            ],
+          },
+          /**
+           * Movie Routes
+           */
+          {
+            path: 'movies',
+            element: <Outlet />,
+            children: [
+              {
+                path: 'movies',
+                element: <Navigate to="/movies" replace />,
+              },
+              {
+                path: '',
+                children: [
+                  { path: '', element: <PageMovies /> },
+                  { path: 'create', element: <div>hello create movie</div> },
+                ],
               },
             ],
           },

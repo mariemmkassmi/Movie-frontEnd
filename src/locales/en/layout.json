@@ -1,7 +1,8 @@
 {
   "mainMenu": {
     "dashboard": "Dashboard",
-    "admin": "Admin"
+    "admin": "Admin",
+    "movies": "Movies"
   },
   "accountMenu": {
     "version": {
