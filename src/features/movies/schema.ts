@@ -17,12 +17,16 @@ export const zMovie = () =>
     id: z.number(),
     name: z.string(),
     description: z.string(),
-    language: z.string(),
+    duration: z.string().nullish(),
+    language: z.string().nullish(),
     imageUrl: z.string(),
-    publishDate: z.string(),
+    publishDate: z.string().nullish(),
     membreStaffs: z.array(zStaff()).nullish(),
     categories: z.array(zCategory()).nullish(),
   });
 
-export const zMovieList = () => z.array(zMovie());
+export const zMovieList = () =>
+  z.object({
+    movies: z.array(zMovie()),
+  });
 export type MovieList = z.infer<ReturnType<typeof zMovieList>>;

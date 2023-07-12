@@ -1,39 +1,27 @@
 import React from 'react';
 
-import {
-  Badge,
-  Box,
-  Flex,
-  HStack,
-  Heading,
-  Image,
-  Stack,
-} from '@chakra-ui/react';
+import { Badge, Flex, HStack, Heading, Image, Stack } from '@chakra-ui/react';
 import { LuPlus } from 'react-icons/lu';
 import { Link, useSearchParams } from 'react-router-dom';
 
 import { Page, PageContent } from '@/components/Page';
 import { ResponsiveIconButton } from '@/components/ResponsiveIconButton';
 import { SearchInput } from '@/components/SearchInput';
-import { AdminNav } from '@/features/admin/AdminNav';
 import { useMovieList } from '@/features/movies/service';
 
-const mockImage =
-  'https://catimage.net/images/2023/07/07/The-Out-Laws-2023-Hindi-Dubbed-HDRip-Full-Movie-HDHub4u.jpg';
+/*const mockImage =
+  'https://catimage.net/images/2023/07/07/The-Out-Laws-2023-Hindi-Dubbed-HDRip-Full-Movie-HDHub4u.jpg'; */
 
 const movieGenreMock = [
   { name: 'Science fiction' },
   { name: 'Thriller1' },
   { name: 'Thriller2' },
-  { name: 'Thriller3' },
-  { name: 'Thriller4' },
-  { name: 'Thriller5' },
 ];
 export default function PageMovies() {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const { data: movies, isLoading } = useMovieList();
-  console.log({ movies });
+  const { movies, isLoading } = useMovieList();
+  console.log(movies, 'teste15');
   const handleChange = (value: string) => {
     setSearchParams({ search: value });
   };
@@ -60,14 +48,15 @@ export default function PageMovies() {
             <SearchInput
               value={searchParams?.get('search') ?? ''}
               onChange={handleChange}
+              placeholder="search By name,year,genre,director,actors...."
             />
             <Flex gap="4" flexWrap="wrap">
               {movies?.map((movie) => (
                 <Flex key={movie.id} gap="2" flexDir="column" maxW="300px">
                   <Image
-                    src={mockImage}
+                    src={movie.imageUrl}
                     alt={movie.name}
-                    maxW="300px"
+                    h="300px"
                     borderRadius="lg"
                     boxShadow="lg"
                   />
@@ -75,7 +64,7 @@ export default function PageMovies() {
                     {movie.name}
                   </Heading>
                   <Flex gap="2" justifyContent="center" flexWrap="wrap">
-                    {(movie?.categories || movieGenreMock)?.map((category) => (
+                    {movie.categories?.map((category) => (
                       <Badge key={category.name} colorScheme="brand">
                         {category.name}
                       </Badge>

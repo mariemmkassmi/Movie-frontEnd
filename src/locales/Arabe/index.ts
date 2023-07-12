@@ -6,6 +6,7 @@ import components from './components.json';
 import dashboard from './dashboard.json';
 import demoMode from './demoMode.json';
 import layout from './layout.json';
+import movie from './movie.json';
 import users from './users.json';
 
 export default {
@@ -18,4 +19,5 @@ export default {
   demoMode,
   layout,
   users,
+  movie,
 } as const;

@@ -8,21 +8,18 @@ export type Language = {
 
 export const DEFAULT_NAMESPACE = 'common';
 
-export const DEFAULT_LANGUAGE_KEY: Language['key'] = 'en';
+export const DEFAULT_LANGUAGE_KEY: Language['key'] = 'Anglais';
 
 export const AVAILABLE_LANGUAGES: Language[] = [
   {
-    key: 'en',
+    key: 'Anglais',
   },
   {
-    key: 'fr',
+    key: 'Francais',
   },
   {
-    key: 'ar',
+    key: 'Arabe',
     dir: 'rtl',
     fontScale: 1.2,
-  },
-  {
-    key: 'sw',
   },
 ];

@@ -17,6 +17,7 @@ import { LoginModalInterceptor } from '@/features/auth/LoginModalInterceptor';
 import PageLogin from '@/features/auth/PageLogin';
 import PageLogout from '@/features/auth/PageLogout';
 import PageDashboard from '@/features/dashboard/PageDashboard';
+import PageMovieDetails from '@/features/movies/PageMovieDetails';
 import { Layout } from '@/layout/Layout';
 import { Loader } from '@/layout/Loader';
 
@@ -34,7 +35,19 @@ const PageUsers = dynamic(() => import('@/features/users/PageUsers'), {
 const PageMovies = dynamic(() => import('@/features/movies/PageMovies'), {
   loading: () => <Loader />,
 });
+const PageMovieCreate = dynamic(
+  () => import('@/features/movies/PageMovieCreate'),
+  {
+    loading: () => <Loader />,
+  }
+);
 
+const PageMovieUpdate = dynamic(
+  () => import('@/features/movies/PageMovieUpdate'),
+  {
+    loading: () => <Loader />,
+  }
+);
 const PageUserCreate = dynamic(
   () => import('@/features/users/PageUserCreate'),
   {
@@ -182,7 +195,9 @@ export const routes = [
                 path: '',
                 children: [
                   { path: '', element: <PageMovies /> },
-                  { path: 'create', element: <div>hello create movie</div> },
+                  { path: 'create', element: <PageMovieCreate /> },
+                  { path: 'update/:id', element: <PageMovieUpdate /> },
+                  { path: 'details/:movieId', element: <PageMovieDetails /> },
                 ],
               },
             ],

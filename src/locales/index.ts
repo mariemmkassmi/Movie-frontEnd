@@ -3,9 +3,8 @@ import 'dayjs/locale/en';
 import 'dayjs/locale/fr';
 import 'dayjs/locale/sw';
 
-import ar from '@/locales/ar';
-import en from '@/locales/en';
-import fr from '@/locales/fr';
-import sw from '@/locales/sw';
+import Anglais from '@/locales/Anglais';
+import Arabe from '@/locales/Arabe';
+import Francais from '@/locales/Francais';
 
-export default { en, fr, ar, sw } as const;
+export default { Arabe, Francais, Anglais } as const;

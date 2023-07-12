@@ -1,9 +1,8 @@
 {
   "languages": {
-    "en": "English",
-    "fr": "French",
-    "ar": "Arabic",
-    "sw": "Swahili"
+    "Anglais": "English",
+    "Francais": "French",
+    "Arabe": "Arabic"
   },
   "actions": {
     "activate": "Activate",
