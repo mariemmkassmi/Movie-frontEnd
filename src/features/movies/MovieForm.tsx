@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Card, CardBody, Stack } from '@chakra-ui/react';
+import { useForm } from '@formiz/core';
 import { isMinLength } from '@formiz/validations';
 import { isNumber } from '@formiz/validations';
 import { useTranslation } from 'react-i18next';
@@ -14,9 +15,13 @@ import {
   DEFAULT_LANGUAGE_KEY,
 } from '@/lib/i18n/constants';
 
+import CategorieRepeater from './CategorieRepeater';
+import Repeater from './Repeater';
+
 export const MovieForm = () => {
   const { t } = useTranslation(['common', 'movie']);
 
+  const form = useForm();
   return (
     <Card>
       <CardBody>
@@ -32,25 +37,10 @@ export const MovieForm = () => {
             ]}
           />
           <Stack direction={{ base: 'column', sm: 'row' }} spacing="6">
-            {/* <FieldInput
-          flexWrap="wrap"
-            name="categories"
-            label={"categories"}
-            required={"required"}
-            validations={[
-              {
-                handler: isMinLength(4)
-                
-              }
-            ]}
-          /> */}
-            /
-            {/* <FieldInput
-          flexWrap="wrap"
-            name="membreStaffs"
-            label={"membreStaffs"}
-           
-          /> */}
+            <CategorieRepeater />
+          </Stack>
+          <Stack direction={{ base: 'column', sm: 'row' }} spacing="6">
+            <Repeater />
           </Stack>
           <Stack>
             <FieldInput
@@ -72,29 +62,30 @@ export const MovieForm = () => {
               required={'required'}
             />
           </Stack>
-          {/* <Stack>
+          <Stack>
             <FieldInput
               name="publishDate"
               label={'publishDate'}
               required={'required'}
             />
-          </Stack> */}
+          </Stack>
           <Stack>
             <FieldInput
               name="duration"
               label={'duration'}
-              required={'required'}
-              validations={[
-                {
-                  handler: isNumber(),
-                  message: 'Please enter a valid number',
-                },
-              ]}
+              // required={'required'}
+              // validations={[
+              //   {
+              //     handler: isNumber(),
+              //     message: 'Please enter a valid number',
+              //   },
+              // ]}
             />
           </Stack>
+          <Stack></Stack>
           <FieldSelect
-            name="langKey"
-            label={'Languge'}
+            name="language"
+            label={'Language'}
             options={AVAILABLE_LANGUAGES.map(({ key }) => ({
               label: t(`common:languages.${key}`),
               value: key,

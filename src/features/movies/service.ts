@@ -23,7 +23,8 @@ export const useMovieList = (queryOptions: UseQueryOptions<MovieList> = {}) => {
   const query = useQuery({
     queryKey: moviesKeys.movies().queryKey,
     queryFn: async () => {
-      const response = await axios.get(MOVIES_BASE_URL);
+      //const response = await axios.get(MOVIES_BASE_URL);
+      const response = await axios.get(`/extended${MOVIES_BASE_URL}`); //with the endpointextended
       console.log(response.data, 'teste');
       return zMovieList().parse({
         movies: response.data,
@@ -50,7 +51,7 @@ export const useMovieUpdate = (
   return useMutation(
     async (payload) => {
       const response = await axios.put(
-        `${MOVIES_BASE_URL}/${movieId}`,
+        `/extended${MOVIES_BASE_URL}/${movieId}`,
         payload
       );
       return zMovie().parse(response.data);
@@ -69,7 +70,7 @@ export const useMovieUpdate = (
                 if (!cachedData) return;
                 return {
                   ...cachedData,
-                  content: (cachedData || []).map((movie) =>
+                  content: (cachedData.movies || []).map((movie) =>
                     movie.id === data.id ? data : movie
                   ),
                 };
@@ -140,7 +141,7 @@ export const useMovieCreate = (
     >
   >(
     (payload) => {
-      return axios.post('/movies', payload);
+      return axios.post('/extended/movies', payload);
     },
     {
       ...config,
@@ -162,9 +163,37 @@ export function useMovieDetails(
   return useQuery<Movie>({
     queryKey: moviesKeys.movie({ movieId }).queryKey,
     queryFn: async () => {
-      const response = await axios.get(`${MOVIES_BASE_URL}/${movieId}`);
+      const response = await axios.get(
+        `/extended${MOVIES_BASE_URL}/${movieId}`
+      );
       return zMovie().parse(response.data);
     },
     ...queryOptions,
   });
 }
+//serach a movie
+export const useMovieSearch = (
+  search: string,
+  queryOptions: UseQueryOptions<MovieList> = {}
+) => {
+  return useQuery<MovieList>({
+    queryKey: ['movies', { search }],
+    queryFn: async () => {
+      const response = await axios.get(
+        `/extended${MOVIES_BASE_URL}?search=${search}`
+      );
+      return zMovieList().parse({
+        movies: response.data,
+      });
+    },
+    ...queryOptions,
+  });
+};
+const deleteMovie = async (movieId) => {
+  const response = await axios.delete(`/extended${MOVIES_BASE_URL}/${movieId}`);
+  return response.data;
+};
+
+export const useMovieDelete = (movieId, config) => {
+  return useMutation(() => deleteMovie(movieId), config);
+};

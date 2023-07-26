@@ -22,7 +22,11 @@ import {
   PageTopBar,
 } from '@/components/Page';
 import { useToastError, useToastSuccess } from '@/components/Toast';
-import { useMovieFormQuery, useMovieUpdate } from '@/features/movies/service';
+import {
+  useMovieDelete,
+  useMovieFormQuery,
+  useMovieUpdate,
+} from '@/features/movies/service';
 import { Loader } from '@/layout/Loader';
 
 import { MovieForm } from './MovieForm';
@@ -45,7 +49,19 @@ export default function PageMovieUpdate() {
       navigate('../');
     },
   });
-
+  const movieDelete = useMovieDelete(params.id || '', {
+    onSuccess: () => {
+      toastSuccess({
+        title: 'Movie has been deleted successfully',
+      });
+      navigate('../');
+    },
+    onError: () => {
+      toastError({
+        title: 'Failed to delete the movie',
+      });
+    },
+  });
   const form = useForm<Omit<Movie, 'id'>>({
     ready: !movie.isLoading,
     initialValues: movie.data,
@@ -95,6 +111,21 @@ export default function PageMovieUpdate() {
                   isLoading={movieUpdate.isLoading}
                 >
                   Update Movie
+                </Button>
+                <Button
+                  colorScheme="red"
+                  onClick={() => {
+                    if (
+                      window.confirm(
+                        'Are you sure you want to delete this movie?'
+                      )
+                    ) {
+                      movieDelete.mutate();
+                    }
+                  }}
+                  isLoading={movieDelete.isLoading}
+                >
+                  Delete Movie
                 </Button>
               </ButtonGroup>
             </PageBottomBar>
